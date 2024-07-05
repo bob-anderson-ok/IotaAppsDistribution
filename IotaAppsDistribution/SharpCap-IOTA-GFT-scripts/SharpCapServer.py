@@ -3,13 +3,26 @@ import threading
 
 MSGLEN = 1000  # We use fixed size messages to avoid possible tcp 'fragmenting' (delivery of a message in parts)
 
-def makeMsg(msg):
-    paddedMsg = msg
-    paddedMsg += (MSGLEN - len(msg)) * ' '
-    return bytes(paddedMsg.encode("utf"))
+def makeMsg(msg):  # pad msg to length MSGLEN by appending spaces
+	paddedMsg = msg
+	paddedMsg += (MSGLEN - len(msg)) * ' '
+	return bytes(paddedMsg.encode("utf"))
 
-def msgTrim(msg):
-    return msg.rstrip()
+def msgTrim(msg):  # Remove trailing spaces
+	return msg.rstrip()
+	
+def getResponse(conn):
+	chunks = []
+	bytesRcvd = 0
+	while bytesRcvd < MSGLEN:
+		chunk = conn.recv(min(MSGLEN - bytesRcvd, 1000))
+		if not chunk:
+			conn.close()
+			return False, b""
+		else:
+			chunks.append(chunk)
+			bytesRcvd += len(chunk)
+	return True, b"".join(chunks)  # This line gets executed when bytesRcvd == MSGLEN  We concatenate the chunks.
 
 def listeningThread(startedBy):
 	# print(startedBy)
@@ -25,21 +38,9 @@ def listeningThread(startedBy):
 			print(f"Connection established from: {addr}")
 			connected = True
 			while connected:
-				chunks = []
-				bytesRcvd = 0
-				while bytesRcvd < MSGLEN:
-					chunk = conn.recv(min(MSGLEN - bytesRcvd, 1000))
-					if not chunk:
-						print("Connection lost")
-						connected = False
-						conn.close()
-						break
-					else:
-						chunks.append(chunk)
-						bytesRcvd += len(chunk)
+				connected, data = getResponse(conn)
 				if not connected:
 					break
-				data = b"".join(chunks)
 				
 				message = msgTrim(data.decode("utf-8"))
 				print("rcvd message:", message)
