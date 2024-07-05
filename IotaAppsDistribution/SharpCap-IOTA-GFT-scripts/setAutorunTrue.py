@@ -8,7 +8,7 @@ def sendAutorunTrue():
 		msg = makeMsg('setAutorunTrue')     # Make the command string MSGLEN in length
 		s.sendall(msg)                      # Send the command
 		_, ans = getResponse(s)             # Get the response
-		ans = msgTrim(ans.decode("utf-8"))  # Turn bytes into string charactersprint('Sent:', 'setAutorunTrue')
+		ans = msgTrim(ans.decode("utf-8"))  # Turn bytes into string characters
 		print('Sent:', 'setAutorunTrue')
 		if ans == "OK":
 			print("Rcvd:", ans)
