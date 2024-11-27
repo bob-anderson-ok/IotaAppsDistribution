@@ -3,31 +3,19 @@ import threading
 
 MSGLEN = 1000  # We use fixed size messages to avoid possible tcp 'fragmenting' (delivery of a message in parts)
 
-def makeMsg(msg):  # pad msg to length MSGLEN by appending spaces
-	paddedMsg = msg
-	paddedMsg += (MSGLEN - len(msg)) * ' '
-	return bytes(paddedMsg.encode("utf"))
+def makeMsg(msg):
+    paddedMsg = msg
+    paddedMsg += (MSGLEN - len(msg)) * ' '
+    return bytes(paddedMsg.encode("utf"))
 
-def msgTrim(msg):  # Remove trailing spaces
-	return msg.rstrip()
-	
-def getResponse(conn):
-	chunks = []
-	bytesRcvd = 0
-	while bytesRcvd < MSGLEN:
-		chunk = conn.recv(min(MSGLEN - bytesRcvd, 1000))
-		if not chunk:
-			conn.close()
-			return False, b""
-		else:
-			chunks.append(chunk)
-			bytesRcvd += len(chunk)
-	return True, b"".join(chunks)  # This line gets executed when bytesRcvd == MSGLEN  We concatenate the chunks.
+def msgTrim(msg):
+    return msg.rstrip()
 
 def listeningThread(startedBy):
 	# print(startedBy)
 	HOST = '127.0.0.1'
 	PORT = 33000
+	print("IotaGFT SharpCap script version 1.1")
 	print("SharpCap is listening on 127.0.0.1:33000" + " (started by: " + startedBy + ")")
 	
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -38,9 +26,21 @@ def listeningThread(startedBy):
 			print(f"Connection established from: {addr}")
 			connected = True
 			while connected:
-				connected, data = getResponse(conn)
+				chunks = []
+				bytesRcvd = 0
+				while bytesRcvd < MSGLEN:
+					chunk = conn.recv(min(MSGLEN - bytesRcvd, 1000))
+					if not chunk:
+						print("Connection lost")
+						connected = False
+						conn.close()
+						break
+					else:
+						chunks.append(chunk)
+						bytesRcvd += len(chunk)
 				if not connected:
 					break
+				data = b"".join(chunks)
 				
 				message = msgTrim(data.decode("utf-8"))
 				print("rcvd message:", message)
@@ -66,6 +66,7 @@ def listeningThread(startedBy):
 				elif message == "lastfilepath":
 					lastCaptureFilePath = SharpCap.GetLastCaptureFilename()
 					if len(lastCaptureFilePath) > 0:
+						print("sent: %s" % SharpCap.GetLastCaptureFilename())
 						conn.sendall(makeMsg(SharpCap.GetLastCaptureFilename()))
 					else:
 						conn.sendall(makeMsg("lastfilepath FAILED"))
@@ -78,6 +79,19 @@ def listeningThread(startedBy):
 						print("Sent:", exposure)
 						conn.sendall(makeMsg(f'{exposure}'))
 					
+				elif message.StartsWith("set_exp_seconds"):
+					if not SharpCap.IsCameraSelected:
+						conn.sendall(makeMsg("No camera selected"))
+					else:
+						parts = message.Split()
+						if len(parts) < 2:
+							print("set_exp_seconds error: no exposure time given")
+							conn.sendall(makeMsg("set_exp_seconds error: no exposure time given"))
+						else:
+							print("Setting exposure to %s seconds" % parts[1])
+							newExposure = float(parts[1])
+							SharpCap.SelectedCamera.Controls.Exposure.Value = newExposure
+							conn.sendall(makeMsg("exposure set to %s seconds" % parts[1]))
 				else:
 					conn.sendall(makeMsg("invalid command!"))
 

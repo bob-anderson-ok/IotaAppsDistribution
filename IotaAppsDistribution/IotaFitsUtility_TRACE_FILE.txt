@@ -1,0 +1,5 @@
+entered: main.main()  
+entered: main.initializeConfig()  
+entered: main.toggleAutoAddTimestampsCheckbox()  
+entered: main.saveFolderHistory()  
+entered: main.delayedExecution()  
