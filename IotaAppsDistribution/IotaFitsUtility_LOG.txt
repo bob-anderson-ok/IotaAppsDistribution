@@ -1,2 +1,110 @@
-2024/11/26 19:36:38 IOTA Fits Utility (version 1.5.3) log file started...
+2024/11/30 12:40:05 IOTA Fits Utility (version 1.5.6) log file started...
 
+
+Processing: D:\SharpCapCaptures\2024-11-30\Capture 01_35_37Z\
+
+================= flash edge detection ===================
+
+leftBottom:  mean 10334148.636364   std 4254.825373
+leftTop:     mean 55545255.333333   std 62205.160111
+left transition value: 18776491.000000 @ 11
+
+left wing:
+
+  0    10341063 
+  1    10338706 
+  2    10330906 
+  3    10333141 
+  4    10334262 
+  5    10333151 
+  6    10334969 
+  7    10339042 
+  8    10332975 
+  9    10324656 
+
+ 10    10332764 
+ 11    18776491 
+ 12    55527463 
+ 13    55562403 
+ 14    55455368 
+ 15    55584741 
+ 16    55428658 
+ 17    55547020 
+ 18    55570074 
+ 19    55601418 
+
+ 20    55630153 
+ 21    46873462 
+
+average pixel value in top: 31.3
+
+A: 10334148.6364  B: 55545255.3333
+sigmaA: 4254.8254  sigmaB: 62205.1601
+p: 18776491.0000  delta: 0.813268
+edge of intermediate point: 11.813268
+sigmaP: 15075.9842  pSNR: 1245.4571
+bSNR: 892.9365  aSNR: 2428.8068
+sigmaFrame: 0.000333
+sigmaFrame from ratio: 0.000970
+adjustedSigmaFrame: 0.001026
+first edge at 11.813268
+
+rightBottom:  mean 10333095.300000   std 1826.024099
+rightTop:     mean 55557008.333333   std 59425.757638
+right transition value: 18952511.000000 @ 10
+
+right wing:
+
+  0    10331519 
+  1    10332461 
+  2    10334164 
+  3    10332524 
+  4    10330978 
+  5    10330786 
+  6    10337239 
+  7    10333269 
+  8    10334401 
+  9    10333612 
+
+ 10    18952511 
+ 11    55539760 
+ 12    55559364 
+ 13    55443606 
+ 14    55560441 
+ 15    55473741 
+ 16    55589560 
+ 17    55615152 
+ 18    55602712 
+ 19    55628739 
+
+ 20    46669000 
+
+average pixel value in top: 31.3
+
+A: 10333095.3000  B: 55557008.3333
+sigmaA: 1826.0241  sigmaB: 59425.7576
+p: 18952511.0000  delta: 0.809406
+edge of intermediate point: 37.809406
+sigmaP: 12804.1995  pSNR: 1480.1793
+bSNR: 934.8978  aSNR: 5658.7946
+sigmaFrame: 0.000283
+sigmaFrame from ratio: 0.000878
+adjustedSigmaFrame: 0.000922
+second edge at 37.809406
+
+timeStepSeconds: 0.500066 (from median)
+
+timeStepSeconds: 0.5000657968750001  (improved)
+
+numGaps: 0 numCadenceErrors: 0 numDroppedFrames: 0
+
+ left goalpost edge at 11.813268
+right goalpost edge at 37.809406
+ left goalpost occurred @ 2024-11-30 01:35:44.000012 +0000 UTC
+right goalpost occurred @ 2024-11-30 01:35:57.000012 +0000 UTC
+
+ left edge time uncertainty: 0.000529
+right edge time uncertainty: 0.000477
+total edge time uncertainty: 0.000712
+
+2024/11/30 12:40:06 ... IOTA FITS Utility 1.5.6 finished timestamp insertion.
