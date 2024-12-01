@@ -3,26 +3,3 @@ entered: main.initializeConfig()
 entered: main.toggleAutoAddTimestampsCheckbox()  
 entered: main.saveFolderHistory()  
 entered: main.delayedExecution()  
-entered: main.chooseFitsFolder()  
-entered: main.folderHistorySelect()  
-entered: main.openFileBrowser()  
-entered: main.openNewFolderDialog()  
-entered: main.processFitsFolderSelectedByFolderDialog()  D:/SharpCapCaptures/2024-11-30/Capture 01_35_37Z/
-entered: main.processChosenListableURI()  D:/SharpCapCaptures/2024-11-30/Capture 01_35_37Z/
-entered: main.processChosenFolderString()  D:\SharpCapCaptures\2024-11-30\Capture 01_35_37Z\
-entered: main.initializeConfig()  
-entered: main.getFitsFilenames()  
-entered: main.addPathToHistory()  D:\SharpCapCaptures\2024-11-30\Capture 01_35_37Z\
-entered: main.saveFolderHistory()  
-entered: main.initializeImages()  
-entered: main.formatMetaData()  
-entered: main.processNewFolder()  
-entered: main.addTimestampsToFitsFiles()  
-entered: main.readEdgeTimeFile()  D:\SharpCapCaptures\2024-11-30\Capture 01_35_37Z\
-entered: main.closeLogFile()  
-entered: main.copyFile()  
-entered: main.copyFile() 2 more times
-entered: main.formatMetaData()  
-entered: main.formatMetaData() 2 more times
-entered: main.showMetaData()  
-entered: main.formatMetaData()  
